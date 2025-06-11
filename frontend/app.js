@@ -16,6 +16,9 @@ App({
     // Enable web sockets
     chatService.setMode(true); // Enable WebSocket mode globally
 
+    // Enable lazy loader debug mode for development (set to false for production)
+    // lazyLoader.setDebugMode(true);
+
     // Generate or retrieve session ID
     let sessionId = storage.get(KEYS.SESSION_ID);
     if (!sessionId) {

@@ -8,6 +8,7 @@ class LazyLoader {
     this.loadedComponents = new Set();
     this.imageObserver = null;
     this.componentQueue = [];
+    this.debugMode = false; // Set to true for verbose logging
   }
 
   /**
@@ -41,7 +42,9 @@ class LazyLoader {
    */
   markComponentLoaded(componentName) {
     this.loadedComponents.add(componentName);
-    console.log(`Component loaded: ${componentName}`);
+    if (this.debugMode) {
+      console.log(`[LazyLoader] Component loaded: ${componentName}`);
+    }
   }
 
   /**
@@ -54,15 +57,19 @@ class LazyLoader {
 
     // Check if there are any elements matching the selector first
     const query = wx.createSelectorQuery().in(context);
-    query.selectAll(selector).boundingClientRect((rects) => {
-      if (!rects || rects.length === 0) {
-        console.log(`No elements found for selector "${selector}". Skipping image lazy loading.`);
-        return;
-      }
+          query.selectAll(selector).boundingClientRect((rects) => {
+        if (!rects || rects.length === 0) {
+          if (this.debugMode) {
+            console.log(`[LazyLoader] No elements found for selector "${selector}". Skipping image lazy loading.`);
+          }
+          return;
+        }
 
-      console.log(`Found ${rects.length} elements for lazy loading with selector "${selector}"`);
+        if (this.debugMode) {
+          console.log(`[LazyLoader] Found ${rects.length} elements for lazy loading with selector "${selector}"`);
+        }
 
-      // Create intersection observer for images only if elements exist
+        // Create intersection observer for images only if elements exist
       this.imageObserver = context.createIntersectionObserver({
         relativeToViewport: true,
         margins: {
@@ -110,19 +117,19 @@ class LazyLoader {
           });
         }
       },
-      fail: (err) => {
-        console.error('Image lazy load failed:', err);
-        // Set fallback or error state
-        const updateKey = `images.${imageId}`;
-        context.setData({
-          [updateKey]: {
-            src: '/assets/images/placeholder.png',
-            loaded: false,
-            loading: false,
-            error: true
-          }
-        });
-      }
+             fail: (err) => {
+         console.error('[LazyLoader] Image lazy load failed:', err);
+         // Set fallback or error state
+         const updateKey = `images.${imageId}`;
+         context.setData({
+           [updateKey]: {
+             src: '/assets/images/placeholder.png',
+             loaded: false,
+             loading: false,
+             error: true
+           }
+         });
+       }
     });
   }
 
@@ -142,10 +149,10 @@ class LazyLoader {
       const data = await dataLoader();
       this.setCache(cacheKey, data);
       return data;
-    } catch (error) {
-      console.error('Data lazy load failed:', error);
-      throw error;
-    }
+         } catch (error) {
+       console.error('[LazyLoader] Data lazy load failed:', error);
+       throw error;
+     }
   }
 
   /**
@@ -157,9 +164,11 @@ class LazyLoader {
       if (cached && cached.timestamp > Date.now() - 300000) { // 5 min cache
         return cached.data;
       }
-    } catch (e) {
-      console.error('Cache read error:', e);
-    }
+         } catch (e) {
+       if (this.debugMode) {
+         console.error('[LazyLoader] Cache read error:', e);
+       }
+     }
     return null;
   }
 
@@ -169,9 +178,11 @@ class LazyLoader {
         data,
         timestamp: Date.now()
       });
-    } catch (e) {
-      console.error('Cache write error:', e);
-    }
+         } catch (e) {
+       if (this.debugMode) {
+         console.error('[LazyLoader] Cache write error:', e);
+       }
+     }
   }
 
   /**
@@ -198,8 +209,21 @@ class LazyLoader {
     const elementsExist = await this.checkElementsExist(selector, context);
     if (elementsExist) {
       this.initImageLazyLoad(selector, context);
-    } else {
-      console.log(`No elements found for "${selector}". Image lazy loading skipped.`);
+         } else {
+       if (this.debugMode) {
+         console.log(`[LazyLoader] No elements found for "${selector}". Image lazy loading skipped.`);
+       }
+     }
+  }
+
+  /**
+   * Enable or disable debug logging
+   * @param {boolean} enabled - Enable debug mode
+   */
+  setDebugMode(enabled) {
+    this.debugMode = enabled;
+    if (enabled) {
+      console.log('[LazyLoader] Debug mode enabled');
     }
   }
 

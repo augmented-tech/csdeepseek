@@ -42,11 +42,11 @@ Page({
       
       // Lazy load components that aren't immediately visible
       lazyLoader.loadComponent('chat-components', () => {
-        console.log('Chat components loaded');
+        // Chat components loaded successfully
       });
-    } catch (error) {
-      console.error('Lazy loading initialization error:', error);
-    }
+         } catch (error) {
+       console.error('[Chat] Lazy loading initialization error:', error);
+     }
   },
 
   async loadChatHistory() {
