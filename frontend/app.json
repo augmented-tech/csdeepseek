@@ -10,5 +10,7 @@
     "navigationBarTextStyle": "white"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "_comment": "Enable lazy loading for better performance and WeChat code quality",
+  "lazyCodeLoading": "requiredComponents"
 } 
