@@ -1,6 +1,12 @@
 <view class="message {{role === 'user' ? 'user-message' : 'assistant-message'}}" bindtap="onTap">
   <block wx:if="{{role === 'assistant'}}">
-    <image class="avatar" src="/assets/images/agent_avatar.svg" mode="aspectFill" />
+    <image 
+      class="avatar lazy-image" 
+      src="/assets/images/agent_avatar.svg" 
+      data-src="/assets/images/agent_avatar.svg"
+      data-loaded="true"
+      mode="aspectFill" 
+      lazy-load="true" />
   </block>
   <view class="message-content">
     <block wx:if="{{isTyping}}">

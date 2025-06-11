@@ -52,28 +52,39 @@ class LazyLoader {
   initImageLazyLoad(selector = '.lazy-image', context) {
     if (!context) return;
 
-    // Create intersection observer for images
-    this.imageObserver = context.createIntersectionObserver({
-      relativeToViewport: true,
-      margins: {
-        top: 100,
-        bottom: 100,
-        left: 0,
-        right: 0
+    // Check if there are any elements matching the selector first
+    const query = wx.createSelectorQuery().in(context);
+    query.selectAll(selector).boundingClientRect((rects) => {
+      if (!rects || rects.length === 0) {
+        console.log(`No elements found for selector "${selector}". Skipping image lazy loading.`);
+        return;
       }
-    });
 
-    this.imageObserver.observe(selector, (res) => {
-      res.forEach(item => {
-        if (item.intersectionRatio > 0) {
-          // Image is in viewport, trigger loading
-          const dataset = item.dataset;
-          if (dataset.src && !dataset.loaded) {
-            this.loadImage(item.id, dataset.src, context);
-          }
+      console.log(`Found ${rects.length} elements for lazy loading with selector "${selector}"`);
+
+      // Create intersection observer for images only if elements exist
+      this.imageObserver = context.createIntersectionObserver({
+        relativeToViewport: true,
+        margins: {
+          top: 100,
+          bottom: 100,
+          left: 0,
+          right: 0
         }
       });
-    });
+
+      this.imageObserver.observe(selector, (res) => {
+        res.forEach(item => {
+          if (item.intersectionRatio > 0) {
+            // Image is in viewport, trigger loading
+            const dataset = item.dataset;
+            if (dataset.src && !dataset.loaded) {
+              this.loadImage(item.id, dataset.src, context);
+            }
+          }
+        });
+      });
+    }).exec();
   }
 
   /**
@@ -160,6 +171,35 @@ class LazyLoader {
       });
     } catch (e) {
       console.error('Cache write error:', e);
+    }
+  }
+
+  /**
+   * Check if elements exist before initializing lazy loading
+   * @param {string} selector - CSS selector to check
+   * @param {Object} context - Page or component context
+   * @returns {Promise<boolean>} - True if elements exist
+   */
+  async checkElementsExist(selector, context) {
+    return new Promise((resolve) => {
+      const query = wx.createSelectorQuery().in(context);
+      query.selectAll(selector).boundingClientRect((rects) => {
+        resolve(rects && rects.length > 0);
+      }).exec();
+    });
+  }
+
+  /**
+   * Initialize lazy loading only if elements exist
+   * @param {string} selector - CSS selector for images to lazy load
+   * @param {Object} context - Page or component context
+   */
+  async initImageLazyLoadSafe(selector = '.lazy-image', context) {
+    const elementsExist = await this.checkElementsExist(selector, context);
+    if (elementsExist) {
+      this.initImageLazyLoad(selector, context);
+    } else {
+      console.log(`No elements found for "${selector}". Image lazy loading skipped.`);
     }
   }
 

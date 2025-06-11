@@ -25,12 +25,15 @@ Page({
   },
 
   async initLazyLoading() {
-    // Initialize image lazy loading
-    lazyLoader.initImageLazyLoad('.lazy-image', this);
+    // Initialize image lazy loading only if we have images
+    // For chat page, we might add avatar images or shared images later
+    setTimeout(async () => {
+      await lazyLoader.initImageLazyLoadSafe('.lazy-image', this);
+    }, 500); // Wait for DOM to be ready
     
     // Lazy load components that aren't immediately visible
-    lazyLoader.loadComponent('message-list', () => {
-      console.log('Message list component loaded');
+    lazyLoader.loadComponent('chat-components', () => {
+      console.log('Chat components loaded');
     });
   },
 
@@ -230,6 +233,9 @@ Page({
   onUnload() {
     // Save chat history to storage
     storage.set(KEYS.CHAT_HISTORY, this.data.messages);
+    
+    // Clean up lazy loader for this page
+    lazyLoader.destroy();
   },
 
   // Helper method to ensure smooth scrolling to bottom
