@@ -1,6 +1,7 @@
 import { storage, KEYS } from './utils/storage/storage';
 // app.js
 import chatService from './services/chat/chat';
+import lazyLoader from './utils/lazyload/lazyload';
 
 App({
   globalData: {
@@ -24,6 +25,16 @@ App({
     this.globalData.sessionId = sessionId;
     // Report app launch analytics
     wx.reportAnalytics('app_launch', { sessionId });
+  },
+
+  onHide() {
+    // Clean up lazy loader when app goes to background
+    console.log('App hidden, cleaning up lazy loader');
+  },
+
+  onUnload() {
+    // Clean up lazy loader resources
+    lazyLoader.destroy();
   },
   generateSessionId() {
     // Use WeChat's system info and timestamp for better entropy

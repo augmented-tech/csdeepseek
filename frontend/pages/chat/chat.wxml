@@ -7,13 +7,26 @@
     enable-back-to-top="false">
     
     <view class="messages-wrapper">
-      <block wx:if="{{messages.length}}">
-        <chat messages="{{messages}}" />
+      <!-- Loading skeleton for lazy loading -->
+      <block wx:if="{{loading && !messages.length}}">
+        <view class="skeleton-loader">
+          <view class="skeleton-message skeleton-user"></view>
+          <view class="skeleton-message skeleton-assistant"></view>
+          <view class="skeleton-message skeleton-user"></view>
+        </view>
       </block>
+      
+      <block wx:elif="{{messages.length}}">
+        <chat messages="{{messages}}" class="lazy-component" />
+      </block>
+      
       <block wx:else>
         <view class="empty-placeholder">
           <text>💬</text>
           <text>No messages yet. Start the conversation!</text>
+          <button class="start-chat-btn" bindtap="onMenuButtonTap">
+            Get Started
+          </button>
         </view>
       </block>
       

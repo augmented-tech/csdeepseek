@@ -1,6 +1,7 @@
 import chatService from '../../services/chat/chat';
 import { storage, KEYS } from '../../utils/storage/storage';
 import { formatTime } from '../../utils/request/request';
+import lazyLoader from '../../utils/lazyload/lazyload';
 
 Page({
   data: {
@@ -13,16 +14,59 @@ Page({
   },
 
   onLoad() {
-    // Load chat history from storage
-    const history = storage.get(KEYS.CHAT_HISTORY) || [];
-    this.setData({ messages: history });
+    // Initialize lazy loading
+    this.initLazyLoading();
+    
+    // Load chat history from storage with lazy loading
+    this.loadChatHistory();
     
     // Set initial mode
     chatService.setMode(this.data.useWebSocket);
+  },
+
+  async initLazyLoading() {
+    // Initialize image lazy loading
+    lazyLoader.initImageLazyLoad('.lazy-image', this);
     
-    // Scroll to bottom after loading messages
-    if (history.length > 0) {
-      this.scrollToBottom();
+    // Lazy load components that aren't immediately visible
+    lazyLoader.loadComponent('message-list', () => {
+      console.log('Message list component loaded');
+    });
+  },
+
+  async loadChatHistory() {
+    // Show skeleton loading state
+    this.setData({ 
+      loading: true,
+      messages: [] 
+    });
+
+    try {
+      // Simulate lazy loading of chat history
+      const history = await lazyLoader.loadData(
+        () => {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              const data = storage.get(KEYS.CHAT_HISTORY) || [];
+              resolve(data);
+            }, 200); // Small delay to show loading state
+          });
+        },
+        'chat_history'
+      );
+
+      this.setData({ 
+        messages: history,
+        loading: false 
+      });
+
+      // Scroll to bottom after loading messages
+      if (history.length > 0) {
+        this.scrollToBottom();
+      }
+    } catch (error) {
+      console.error('Failed to load chat history:', error);
+      this.setData({ loading: false });
     }
   },
 
