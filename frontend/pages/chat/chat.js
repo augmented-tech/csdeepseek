@@ -14,27 +14,39 @@ Page({
   },
 
   onLoad() {
-    // Initialize lazy loading
-    this.initLazyLoading();
-    
-    // Load chat history from storage with lazy loading
-    this.loadChatHistory();
+    // Load chat history from storage
+    const history = storage.get(KEYS.CHAT_HISTORY) || [];
+    this.setData({ messages: history });
     
     // Set initial mode
     chatService.setMode(this.data.useWebSocket);
+    
+    // Scroll to bottom after loading messages
+    if (history.length > 0) {
+      this.scrollToBottom();
+    }
+    
+    // Initialize lazy loading after a delay
+    setTimeout(() => {
+      this.initLazyLoading();
+    }, 1000);
   },
 
   async initLazyLoading() {
-    // Initialize image lazy loading only if we have images
-    // For chat page, we might add avatar images or shared images later
-    setTimeout(async () => {
-      await lazyLoader.initImageLazyLoadSafe('.lazy-image', this);
-    }, 500); // Wait for DOM to be ready
-    
-    // Lazy load components that aren't immediately visible
-    lazyLoader.loadComponent('chat-components', () => {
-      console.log('Chat components loaded');
-    });
+    try {
+      // Initialize image lazy loading only if we have images
+      // For chat page, we might add avatar images or shared images later
+      setTimeout(async () => {
+        await lazyLoader.initImageLazyLoadSafe('.lazy-image', this);
+      }, 500); // Wait for DOM to be ready
+      
+      // Lazy load components that aren't immediately visible
+      lazyLoader.loadComponent('chat-components', () => {
+        console.log('Chat components loaded');
+      });
+    } catch (error) {
+      console.error('Lazy loading initialization error:', error);
+    }
   },
 
   async loadChatHistory() {
