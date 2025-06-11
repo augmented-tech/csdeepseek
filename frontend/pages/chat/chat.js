@@ -26,10 +26,10 @@ Page({
       this.scrollToBottom();
     }
     
-    // Initialize lazy loading after a delay
+    // Initialize lazy loading after a shorter delay
     setTimeout(() => {
       this.initLazyLoading();
-    }, 1000);
+    }, 200);
   },
 
   async initLazyLoading() {
@@ -38,7 +38,7 @@ Page({
       // For chat page, we might add avatar images or shared images later
       setTimeout(async () => {
         await lazyLoader.initImageLazyLoadSafe('.lazy-image', this);
-      }, 500); // Wait for DOM to be ready
+      }, 100); // Shorter wait for DOM to be ready
       
       // Lazy load components that aren't immediately visible
       lazyLoader.loadComponent('chat-components', () => {
@@ -64,7 +64,7 @@ Page({
             setTimeout(() => {
               const data = storage.get(KEYS.CHAT_HISTORY) || [];
               resolve(data);
-            }, 200); // Small delay to show loading state
+            }, 50); // Minimal delay to show loading state
           });
         },
         'chat_history'
