@@ -1,0 +1,10 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "go",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "DEEPSEEK_API_KEY": "your_api_key_here",
+    "QDRANT_URL": "http://localhost:6333",
+    "REDIS_URL": "localhost:6379"
+  }
+} 

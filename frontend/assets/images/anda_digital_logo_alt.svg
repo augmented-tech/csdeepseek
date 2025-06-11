@@ -1,0 +1,33 @@
+<svg width="180" height="60" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Main brand gradient -->
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a3bc0"/>
+      <stop offset="100%" style="stop-color:#00d4ff"/>
+    </linearGradient>
+    
+    <!-- Text gradient -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a3bc0"/>
+      <stop offset="100%" style="stop-color:#0f2a80"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Hexagon tech icon -->
+  <g transform="translate(20, 30)">
+    <polygon points="0,8 4,0 12,0 16,8 12,16 4,16" fill="url(#brandGradient)" opacity="0.9"/>
+    <polygon points="2,8 5,3 11,3 14,8 11,13 5,13" fill="white"/>
+    <circle cx="8" cy="8" r="2" fill="url(#brandGradient)"/>
+  </g>
+  
+  <!-- Chinese characters in modern style -->
+  <text x="45" y="25" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="bold" fill="url(#textGradient)">安达</text>
+  <text x="45" y="42" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" font-weight="500" fill="#666">数字科技</text>
+  
+  <!-- English branding -->
+  <text x="95" y="25" font-family="'SF Pro Text', Arial, sans-serif" font-size="14" font-weight="700" fill="url(#textGradient)" letter-spacing="0.5px">ANDA</text>
+  <text x="95" y="42" font-family="'SF Pro Text', Arial, sans-serif" font-size="11" font-weight="400" fill="#888" letter-spacing="1px">DIGITAL</text>
+  
+  <!-- Modern accent dot -->
+  <circle cx="145" cy="20" r="3" fill="url(#brandGradient)"/>
+</svg> 

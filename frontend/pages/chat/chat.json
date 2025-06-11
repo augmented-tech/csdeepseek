@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "DeepSeek Chat",
+  "navigationBarBackgroundColor": "#1a3bc0",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "chat": "/components/chat/chat",
+    "input": "/components/input/input",
+    "flexiblemessage": "/components/flexiblemessage/flexiblemessage"
+  }
+} 

@@ -1,0 +1,39 @@
+<view class="chat-page">
+  <scroll-view 
+    class="chat-container" 
+    scroll-y="true" 
+    scroll-into-view="{{scrollToId}}"
+    scroll-with-animation="true"
+    enable-back-to-top="false">
+    
+    <view class="messages-wrapper">
+      <block wx:if="{{messages.length}}">
+        <chat messages="{{messages}}" />
+      </block>
+      <block wx:else>
+        <view class="empty-placeholder">
+          <text>💬</text>
+          <text>No messages yet. Start the conversation!</text>
+        </view>
+      </block>
+      
+      <block wx:if="{{currentAssistantMessage}}">
+        <flexiblemessage
+          content="{{currentAssistantMessage}}"
+          role="assistant"
+          isStreaming="{{loading}}"
+          timestamp=""
+        />
+      </block>
+      
+      <view id="bottom-anchor" class="scroll-anchor"></view>
+    </view>
+  </scroll-view>
+  
+  <!-- Floating Menu Button -->
+  <view class="floating-menu-btn" bindtap="onMenuButtonTap">
+    <text class="menu-icon">⋯</text>
+  </view>
+  
+  <input bindsend="onSend" />
+</view>

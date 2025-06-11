@@ -1,0 +1,89 @@
+.message {
+  margin-bottom: 20rpx;
+  max-width: 80%;
+  clear: both;
+}
+
+.user-message {
+  float: right;
+}
+
+.assistant-message {
+  float: left;
+}
+
+.message-content {
+  padding: 20rpx;
+  border-radius: 10rpx;
+  word-wrap: break-word;
+}
+
+.user-message .message-content {
+  background: #07C160;
+  color: white;
+}
+
+.assistant-message .message-content {
+  background: white;
+  color: #333;
+}
+
+.message-time {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+  text-align: center;
+}
+
+.avatar {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  float: left;
+  object-fit: cover;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  padding: 0 10rpx;
+}
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: #07C160;
+  border-radius: 50%;
+  margin: 0 4rpx;
+  animation: blink 1.4s infinite both;
+}
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes blink {
+  0%, 80%, 100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+.error-message {
+  color: #e53e3e;
+  font-size: 28rpx;
+  margin-bottom: 8rpx;
+}
+.retry-btn {
+  background: #07C160;
+  color: #fff;
+  border: none;
+  border-radius: 8rpx;
+  padding: 8rpx 24rpx;
+  font-size: 28rpx;
+  margin-top: 4rpx;
+} 

@@ -1,0 +1,19 @@
+<view class="chat-messages">
+  <block wx:for="{{messages}}" wx:key="index">
+    <view class="message-item {{item.role === 'user' ? 'user-message' : 'assistant-message'}}"
+          data-index="{{index}}"
+          bindtap="onMessageTap">
+      
+             <block wx:if="{{item.role === 'assistant'}}">
+         <image class="avatar" src="../../assets/images/agent_avatar.svg" mode="aspectFill" />
+       </block>
+      
+      <view class="message-bubble">
+        <view class="message-content">
+          <text>{{item.content}}</text>
+        </view>
+        <view class="message-time">{{item.timestamp}}</view>
+      </view>
+    </view>
+  </block>
+</view> 

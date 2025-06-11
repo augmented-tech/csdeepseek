@@ -1,0 +1,93 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+}
+
+.container {
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60rpx;
+}
+
+.logo {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.08);
+  margin-bottom: 48rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #22223b;
+  margin-bottom: 24rpx;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.welcome {
+  font-size: 32rpx;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  font-size: 32rpx;
+  color: #4a4e69;
+  margin-bottom: 16rpx;
+  text-align: center;
+}
+
+.desc {
+  font-size: 28rpx;
+  color: #9a8c98;
+  margin-bottom: 64rpx;
+  text-align: center;
+}
+
+.footer {
+  width: 100%;
+  margin-bottom: 60rpx;
+}
+
+.start-btn {
+  width: 80vw;
+  max-width: 400rpx;
+  height: 88rpx;
+  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 44rpx;
+  box-shadow: 0 4rpx 16rpx rgba(67,233,123,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  letter-spacing: 2rpx;
+} 

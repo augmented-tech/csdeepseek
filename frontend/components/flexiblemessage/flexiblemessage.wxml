@@ -1,0 +1,15 @@
+<view class="streaming-message-item {{role === 'user' ? 'user-message' : 'assistant-message'}}">
+  <block wx:if="{{role === 'assistant'}}">
+    <image class="avatar" src="../../assets/images/agent_avatar.svg" mode="aspectFill" />
+  </block>
+  
+  <view class="message-bubble">
+    <view class="message-content">
+      <text>{{content}}</text>
+      <block wx:if="{{isStreaming}}">
+        <text class="blinking-cursor">|</text>
+      </block>
+    </view>
+    <view class="message-time">{{timestamp}}</view>
+  </view>
+</view> 

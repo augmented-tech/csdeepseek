@@ -1,0 +1,92 @@
+/* Streaming message item */
+.streaming-message-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+/* User messages align to the right */
+.user-message {
+  flex-direction: row-reverse;
+  align-self: flex-end;
+  max-width: 80%;
+}
+
+/* Assistant messages align to the left */
+.assistant-message {
+  flex-direction: row;
+  align-self: flex-start;
+  max-width: 80%;
+}
+
+/* Avatar for assistant messages */
+.avatar {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+/* Message bubble container */
+.message-bubble {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Allows text to wrap properly */
+}
+
+/* Message content bubble */
+.message-content {
+  padding: 20rpx;
+  border-radius: 16rpx;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+/* User message styling */
+.user-message .message-content {
+  background: #07C160;
+  color: white;
+  border-bottom-right-radius: 6rpx;
+}
+
+/* Assistant message styling */
+.assistant-message .message-content {
+  background: white;
+  color: #333;
+  border-bottom-left-radius: 6rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+/* Message timestamp */
+.message-time {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+  padding: 0 8rpx;
+}
+
+/* User message timestamp alignment */
+.user-message .message-time {
+  text-align: right;
+}
+
+/* Assistant message timestamp alignment */
+.assistant-message .message-time {
+  text-align: left;
+}
+
+/* Blinking cursor for streaming */
+.blinking-cursor {
+  display: inline-block;
+  margin-left: 2rpx;
+  color: #07C160;
+  animation: blink-cursor 1s steps(2, start) infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+} 

@@ -1,0 +1,22 @@
+{
+  "name": "csdeepseek-frontend",
+  "version": "1.0.0",
+  "description": "DeepSeek Chat Mini Program",
+  "main": "app.js",
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "wechat",
+    "miniprogram",
+    "chat",
+    "ai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.0.0"
+  }
+} 

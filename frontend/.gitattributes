@@ -1,0 +1,43 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# JS files
+*.js text
+*.jsx text
+*.json text
+
+# WeChat Mini Program files
+*.wxml text
+*.wxss text
+
+# Documentation
+*.md text
+*.txt text
+
+# Configs
+.editorconfig text
+.eslintrc text
+.prettierrc text
+.npmrc text
+.gitignore text
+.gitattributes text
+
+# Graphics
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.svg text
+
+# Audio
+*.mp3 binary
+*.wav binary
+
+# Video
+*.mp4 binary
+*.webm binary
+
+# Fonts
+*.ttf binary
+*.woff binary
+*.woff2 binary 

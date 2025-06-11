@@ -1,0 +1,20 @@
+<view class="input-container">
+  <view class="input-wrapper">
+    <input 
+      class="message-input" 
+      placeholder="{{placeholder}}" 
+      value="{{inputValue}}" 
+      bindinput="onInput" 
+      confirm-type="send" 
+      bindconfirm="onSendTap"
+      adjust-position="{{true}}"
+      hold-keyboard="{{true}}" />
+    
+    <button 
+      class="send-button {{inputValue.trim() ? 'active' : 'inactive'}}" 
+      bindtap="onSendTap"
+      hover-class="send-button-hover">
+      <text class="send-icon">→</text>
+    </button>
+  </view>
+</view>

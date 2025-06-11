@@ -1,0 +1,45 @@
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for modern tech feel -->
+    <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a3bc0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0f2a80;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a3bc0;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Secondary gradient -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a3bc0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle for modern tech feel -->
+  <circle cx="25" cy="40" r="18" fill="url(#techGradient)" opacity="0.1"/>
+  
+  <!-- Modern geometric icon -->
+  <g transform="translate(15, 30)">
+    <!-- Digital/Data visualization icon -->
+    <rect x="2" y="8" width="3" height="12" fill="url(#techGradient)" rx="1"/>
+    <rect x="7" y="4" width="3" height="16" fill="url(#techGradient)" rx="1"/>
+    <rect x="12" y="6" width="3" height="14" fill="url(#techGradient)" rx="1"/>
+    <rect x="17" y="2" width="3" height="18" fill="url(#accentGradient)" rx="1"/>
+  </g>
+  
+  <!-- Chinese Characters 安达数字 -->
+  <text x="50" y="30" font-family="SimHei, 'Microsoft YaHei', sans-serif" font-size="18" font-weight="bold" fill="url(#techGradient)">安达数字</text>
+  
+  <!-- English Text "Anda Digital" -->
+  <text x="50" y="50" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" fill="#666" letter-spacing="1px">ANDA DIGITAL</text>
+  
+  <!-- Modern underline accent -->
+  <rect x="50" y="55" width="40" height="2" fill="url(#accentGradient)" rx="1"/>
+  
+  <!-- Tech circuit pattern (subtle) -->
+  <g opacity="0.3">
+    <line x1="170" y1="20" x2="185" y2="20" stroke="url(#accentGradient)" stroke-width="1"/>
+    <circle cx="187" cy="20" r="2" fill="url(#accentGradient)"/>
+    <line x1="170" y1="30" x2="180" y2="30" stroke="url(#accentGradient)" stroke-width="1"/>
+    <line x1="175" y1="25" x2="175" y2="35" stroke="url(#accentGradient)" stroke-width="1"/>
+  </g>
+</svg> 

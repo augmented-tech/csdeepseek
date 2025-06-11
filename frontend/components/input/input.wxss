@@ -1,0 +1,107 @@
+/* Input container - docks at bottom */
+.input-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #fff;
+  padding: 16rpx 20rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid #e5e5e5;
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+}
+
+/* Input wrapper - contains input and send button */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  background: #f8f9fa;
+  border-radius: 24rpx;
+  padding: 8rpx 8rpx 8rpx 20rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.2s ease;
+  min-height: 72rpx;
+}
+
+.input-wrapper:focus-within {
+  border-color: #07C160;
+  background: #fff;
+  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.1);
+}
+
+/* Message input field */
+.message-input {
+  flex: 1;
+  height: 72rpx;
+  font-size: 32rpx;
+  color: #333;
+  background: transparent;
+  border: none;
+  outline: none;
+  line-height: 1.4;
+  padding: 0;
+  margin: 0;
+}
+
+.message-input::placeholder {
+  color: #999;
+  font-size: 30rpx;
+}
+
+/* Send button */
+.send-button {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+/* Active send button (when there's text) */
+.send-button.active {
+  background: #07C160;
+  transform: scale(1);
+}
+
+.send-button.active .send-icon {
+  color: #fff;
+}
+
+.send-button.active:active {
+  transform: scale(0.95);
+  background: #06a550;
+}
+
+/* Inactive send button (when input is empty) */
+.send-button.inactive {
+  background: #e5e5e5;
+  transform: scale(0.9);
+  opacity: 0.6;
+  pointer-events: auto;
+}
+
+.send-button.inactive .send-icon {
+  color: #999;
+}
+
+/* Send icon */
+.send-icon {
+  font-size: 36rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Send button hover state */
+.send-button-hover {
+  transform: scale(0.95) !important;
+}

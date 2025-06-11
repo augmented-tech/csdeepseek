@@ -1,0 +1,44 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="300" fill="#1a3bc0"/>
+  
+  <!-- Chat bubbles background -->
+  <circle cx="100" cy="80" r="30" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="200" cy="120" r="35" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="150" cy="180" r="25" fill="rgba(255,255,255,0.1)"/>
+  
+  <!-- Main robot icon -->
+  <g transform="translate(150, 150)">
+    <!-- Robot head -->
+    <rect x="-20" y="-25" width="40" height="30" rx="5" fill="#ffffff"/>
+    
+    <!-- Eyes -->
+    <circle cx="-10" cy="-15" r="3" fill="#1a3bc0"/>
+    <circle cx="10" cy="-15" r="3" fill="#1a3bc0"/>
+    
+    <!-- Mouth -->
+    <rect x="-8" y="-5" width="16" height="3" rx="1.5" fill="#1a3bc0"/>
+    
+    <!-- Antennas -->
+    <circle cx="-8" cy="-35" r="2" fill="#ffffff"/>
+    <circle cx="8" cy="-35" r="2" fill="#ffffff"/>
+    <line x1="-8" y1="-33" x2="-8" y2="-25" stroke="#ffffff" stroke-width="2"/>
+    <line x1="8" y1="-33" x2="8" y2="-25" stroke="#ffffff" stroke-width="2"/>
+    
+    <!-- Body -->
+    <rect x="-15" y="5" width="30" height="20" rx="3" fill="#ffffff"/>
+    
+    <!-- Chest panel -->
+    <rect x="-10" y="10" width="20" height="5" rx="2" fill="#1a3bc0"/>
+    
+    <!-- Arms -->
+    <rect x="-25" y="8" width="8" height="15" rx="4" fill="#ffffff"/>
+    <rect x="17" y="8" width="8" height="15" rx="4" fill="#ffffff"/>
+  </g>
+  
+  <!-- Title text -->
+  <text x="150" y="250" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">DeepSeek Chat</text>
+  
+  <!-- Subtitle -->
+  <text x="150" y="275" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial, sans-serif" font-size="14">AI Assistant</text>
+</svg> 

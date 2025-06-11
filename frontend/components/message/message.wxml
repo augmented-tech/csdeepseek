@@ -1,0 +1,22 @@
+<view class="message {{role === 'user' ? 'user-message' : 'assistant-message'}}" bindtap="onTap">
+  <block wx:if="{{role === 'assistant'}}">
+    <image class="avatar" src="/assets/images/agent_avatar.svg" mode="aspectFill" />
+  </block>
+  <view class="message-content">
+    <block wx:if="{{isTyping}}">
+      <view class="typing-indicator">
+        <view class="dot"></view>
+        <view class="dot"></view>
+        <view class="dot"></view>
+      </view>
+    </block>
+    <block wx:elif="{{hasError}}">
+      <view class="error-message">抱歉，连接出现问题</view>
+      <button class="retry-btn" bindtap="onRetry">重试</button>
+    </block>
+    <block wx:else>
+      <text>{{content}}</text>
+    </block>
+  </view>
+  <view class="message-time">{{timestamp}}</view>
+</view> 
