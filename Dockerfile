@@ -31,8 +31,7 @@ WORKDIR /app
 # Copy binary from builder
 COPY --from=builder /app/csdeepseek .
 
-# Copy environment file from backend directory
-COPY backend/env.example .env
+# Note: Using Azure environment variables instead of .env file
 
 # Expose port (Azure will set PORT env var)
 EXPOSE 80
