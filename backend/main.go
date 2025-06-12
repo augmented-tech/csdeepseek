@@ -58,8 +58,13 @@ func main() {
 	mux.HandleFunc("/ws/chat", wsChatHandler.HandleWSChat)
 
 	// Create server
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "7071"
+	}
 	server := &http.Server{
-		Addr:         ":7071",
+		Addr:         ":" + port,
 		Handler:      mux,
 		ReadTimeout:  30 * time.Second,
 		WriteTimeout: 30 * time.Second,
@@ -68,7 +73,7 @@ func main() {
 
 	// Start server in a goroutine
 	go func() {
-		log.Printf("Server starting on :7071")
+		log.Printf("Server starting on :%s", port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Server failed to start: %v", err)
 		}
