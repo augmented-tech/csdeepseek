@@ -34,8 +34,8 @@ COPY --from=builder /app/csdeepseek .
 # Copy environment file
 COPY env.example .env
 
-# Expose port
-EXPOSE 8080
+# Expose port (Azure will set PORT env var)
+EXPOSE 80
 
 # Run the application
 CMD ["./csdeepseek"] 
