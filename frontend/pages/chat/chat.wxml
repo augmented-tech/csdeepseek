@@ -43,8 +43,14 @@
     </view>
   </scroll-view>
   
-  <!-- Floating Menu Button -->
-  <view class="floating-menu-btn" bindtap="onMenuButtonTap">
+  <!-- Floating Menu Button with Drag Support -->
+  <view 
+    class="floating-menu-btn {{isDragging ? 'dragging' : ''}}" 
+    style="left: {{floatingBtnX}}rpx; top: {{floatingBtnY}}rpx;"
+    bindtouchstart="onFloatingBtnTouchStart"
+    bindtouchmove="onFloatingBtnTouchMove"
+    bindtouchend="onFloatingBtnTouchEnd"
+    bindtap="onMenuButtonTap">
     <text class="menu-icon">⋯</text>
   </view>
   

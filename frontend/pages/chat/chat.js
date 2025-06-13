@@ -10,10 +10,21 @@ Page({
     loading: false,
     sessionId: '', // get from globalData or storage if needed
     useWebSocket: true, // can be toggled in settings
-    scrollToId: ''
+    scrollToId: '',
+    // Floating button drag state
+    isDragging: false,
+    floatingBtnX: null, // Will be set to default position
+    floatingBtnY: null, // Will be set to default position
+    dragStartX: 0,
+    dragStartY: 0,
+    dragStartBtnX: 0,
+    dragStartBtnY: 0
   },
 
   onLoad() {
+    // Initialize floating button position
+    this.initFloatingButtonPosition();
+    
     // Load chat history from storage
     const history = storage.get(KEYS.CHAT_HISTORY) || [];
     this.setData({ messages: history });
@@ -30,6 +41,129 @@ Page({
     setTimeout(() => {
       this.initLazyLoading();
     }, 200);
+  },
+
+  initFloatingButtonPosition() {
+    // Get window info to calculate default position
+    const windowInfo = wx.getWindowInfo();
+    const screenWidth = windowInfo.screenWidth;
+    const screenHeight = windowInfo.screenHeight;
+    
+    // Convert px to rpx (750rpx = screenWidth px)
+    const pxToRpx = 750 / screenWidth;
+    
+    // Try to load saved position first
+    const savedPosition = wx.getStorageSync('floatingBtnPosition');
+    
+    if (savedPosition && savedPosition.x !== undefined && savedPosition.y !== undefined) {
+      // Use saved position but ensure it's within screen bounds
+      const buttonSize = 100; // rpx
+      const margin = 20; // rpx margin from edges
+      const maxX = 750 - buttonSize - margin;
+      const maxY = (windowInfo.screenHeight * pxToRpx) - buttonSize - margin;
+      
+      const constrainedX = Math.max(margin, Math.min(savedPosition.x, maxX));
+      const constrainedY = Math.max(margin, Math.min(savedPosition.y, maxY));
+      
+      this.setData({
+        floatingBtnX: constrainedX,
+        floatingBtnY: constrainedY
+      });
+    } else {
+      // Default position: right: 30rpx, bottom: 200rpx
+      // Convert to left and top coordinates
+      const defaultRight = 30; // rpx
+      const defaultBottom = 200; // rpx
+      const buttonSize = 100; // rpx
+      
+      const defaultX = 750 - defaultRight - buttonSize; // Convert right to left
+      const defaultY = (screenHeight * pxToRpx) - defaultBottom - buttonSize; // Convert bottom to top
+      
+      this.setData({
+        floatingBtnX: defaultX,
+        floatingBtnY: defaultY
+      });
+    }
+  },
+
+  // Floating button drag handlers
+  onFloatingBtnTouchStart(e) {
+    const touch = e.touches[0];
+    this.dragStartTime = Date.now();
+    this.dragStartX = touch.clientX;
+    this.dragStartY = touch.clientY;
+    this.dragStartBtnX = this.data.floatingBtnX;
+    this.dragStartBtnY = this.data.floatingBtnY;
+    this.hasMoved = false;
+    
+    // Don't set isDragging immediately - wait for actual movement
+    this.setData({
+      isDragging: false
+    });
+  },
+
+  onFloatingBtnTouchMove(e) {
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - this.dragStartX);
+    const deltaY = Math.abs(touch.clientY - this.dragStartY);
+    const dragThreshold = 10; // pixels - minimum movement to start dragging
+    
+    // Only start dragging if user has moved beyond threshold
+    if (!this.hasMoved && (deltaX > dragThreshold || deltaY > dragThreshold)) {
+      this.hasMoved = true;
+      this.setData({
+        isDragging: true
+      });
+    }
+    
+    // Only update position if we're actually dragging
+    if (this.hasMoved) {
+      const windowInfo = wx.getWindowInfo();
+      const pxToRpx = 750 / windowInfo.screenWidth;
+      
+      // Calculate new position
+      const totalDeltaX = (touch.clientX - this.dragStartX) * pxToRpx;
+      const totalDeltaY = (touch.clientY - this.dragStartY) * pxToRpx;
+      
+      let newX = this.dragStartBtnX + totalDeltaX;
+      let newY = this.dragStartBtnY + totalDeltaY;
+      
+      // Constrain to screen boundaries
+      const buttonSize = 100; // rpx
+      const margin = 20; // rpx margin from edges
+      const maxX = 750 - buttonSize - margin;
+      const maxY = (windowInfo.screenHeight * pxToRpx) - buttonSize - margin;
+      
+      newX = Math.max(margin, Math.min(newX, maxX));
+      newY = Math.max(margin, Math.min(newY, maxY));
+      
+      this.setData({
+        floatingBtnX: newX,
+        floatingBtnY: newY
+      });
+    }
+  },
+
+  onFloatingBtnTouchEnd(e) {
+    const wasDragging = this.data.isDragging;
+    
+    this.setData({
+      isDragging: false
+    });
+    
+    // Only save position if user actually dragged
+    if (wasDragging && this.hasMoved) {
+      wx.setStorageSync('floatingBtnPosition', {
+        x: this.data.floatingBtnX,
+        y: this.data.floatingBtnY
+      });
+    }
+    
+    // Store drag state to prevent menu opening if user was dragging
+    this.justFinishedDragging = wasDragging && this.hasMoved;
+    setTimeout(() => {
+      this.justFinishedDragging = false;
+    }, 150);
   },
 
   async initLazyLoading() {
@@ -103,6 +237,11 @@ Page({
 
   // Menu options when user taps the menu button
   onMenuButtonTap() {
+    // Don't open menu if user just finished dragging
+    if (this.justFinishedDragging) {
+      return;
+    }
+    
     const that = this;
     wx.showActionSheet({
       itemList: [
@@ -250,20 +389,25 @@ Page({
     lazyLoader.destroy();
   },
 
-  // Helper method to ensure smooth scrolling to bottom
+  // Helper method to ensure smooth scrolling to bottom - IMPROVED
   scrollToBottom() {
-    // Use timeout to ensure DOM has updated
-    setTimeout(() => {
-      this.setData({ scrollToId: 'bottom-anchor' });
-    }, 100);
+    // Clear any existing scroll timeout
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
+    }
     
-    // Additional scroll after a longer delay to catch any final content
-    setTimeout(() => {
-      this.setData({ scrollToId: '' });
+    // Use timeout to ensure DOM has updated
+    this.scrollTimeout = setTimeout(() => {
+      this.setData({ scrollToId: 'bottom-anchor' });
+      
+      // Additional scroll after a longer delay to catch any final content
       setTimeout(() => {
-        this.setData({ scrollToId: 'bottom-anchor' });
-      }, 50);
-    }, 300);
+        this.setData({ scrollToId: '' });
+        setTimeout(() => {
+          this.setData({ scrollToId: 'bottom-anchor' });
+        }, 50);
+      }, 200); // Reduced from 300ms to 200ms for faster response
+    }, 100);
   },
 
   async onSend(e) {

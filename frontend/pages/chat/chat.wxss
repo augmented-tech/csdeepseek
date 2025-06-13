@@ -59,7 +59,7 @@
 /* Messages wrapper inside scroll container */
 .messages-wrapper {
   padding: 20rpx;
-  padding-bottom: 40rpx; /* Extra bottom padding for scroll space */
+  padding-bottom: 80rpx; /* Increased from 40rpx to 80rpx for better scroll space */
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -176,15 +176,13 @@
 
 /* Scroll anchor for auto-scroll */
 .scroll-anchor {
-  height: 20rpx;
+  height: 40rpx; /* Increased from 20rpx to 40rpx for better scroll positioning */
   width: 100%;
 }
 
 /* Floating Menu Button - Chinese Mobile App Standard */
 .floating-menu-btn {
   position: fixed;
-  bottom: 200rpx;
-  right: 30rpx;
   width: 100rpx;
   height: 100rpx;
   background: linear-gradient(135deg, #1a3bc0 0%, #0f2a80 100%);
@@ -195,6 +193,25 @@
   z-index: 1001;
   box-shadow: 0 8rpx 24rpx rgba(26, 59, 192, 0.4);
   transition: all 0.3s ease;
+  /* Add properties for dragging */
+  touch-action: none;
+  user-select: none;
+}
+
+.floating-menu-btn.dragging {
+  transition: none; /* Disable transitions while dragging */
+  transform: scale(1.1);
+  box-shadow: 0 12rpx 32rpx rgba(26, 59, 192, 0.6);
+  animation: drag-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes drag-pulse {
+  0% {
+    box-shadow: 0 12rpx 32rpx rgba(26, 59, 192, 0.6);
+  }
+  100% {
+    box-shadow: 0 16rpx 40rpx rgba(26, 59, 192, 0.8);
+  }
 }
 
 .floating-menu-btn:active {
@@ -213,5 +230,6 @@
   font-weight: bold;
   line-height: 1;
   text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+  pointer-events: none; /* Prevent icon from interfering with touch events */
 }
 
