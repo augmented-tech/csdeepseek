@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:7071';
+const BASE_URL = 'https://localhost:7071';
 
 const request = (url, options = {}) => {
   return new Promise((resolve, reject) => {

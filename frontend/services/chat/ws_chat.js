@@ -1,6 +1,6 @@
 // WebSocket streaming chat service for DeepSeek
 
-const WS_URL = 'ws://localhost:7071/ws/chat'; // Update if backend is remote
+const WS_URL = 'wss://localhost:7071/ws/chat'; // Azure production backend
 
 class WSChatService {
   constructor() {
