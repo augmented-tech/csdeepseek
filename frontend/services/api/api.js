@@ -1,9 +1,9 @@
-const BASE_URL = 'https://localhost:7071';
+import CONFIG from '../../config/config';
 
 const request = (url, options = {}) => {
   return new Promise((resolve, reject) => {
     wx.request({
-      url: `${BASE_URL}${url}`,
+      url: `${CONFIG.getApiUrl()}${url}`,
       ...options,
       success: (res) => {
         if (res.statusCode >= 200 && res.statusCode < 300) {

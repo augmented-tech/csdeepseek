@@ -1,6 +1,5 @@
 // WebSocket streaming chat service for DeepSeek
-
-const WS_URL = 'wss://localhost:7071/ws/chat'; // Azure production backend
+import CONFIG from '../../config/config';
 
 class WSChatService {
   constructor() {
@@ -15,7 +14,7 @@ class WSChatService {
 
   connect() {
     if (this.isConnected) return;
-    this.socket = wx.connectSocket({ url: WS_URL });
+    this.socket = wx.connectSocket({ url: CONFIG.getWebSocketUrl() });
     this.socket.onOpen(() => {
       this.isConnected = true;
       // Send any queued messages

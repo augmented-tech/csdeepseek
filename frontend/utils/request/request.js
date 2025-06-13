@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.deepseek.com/v1';
+import CONFIG from '../../config/config';
 
 const formatTime = (date) => {
   const year = date.getFullYear();
@@ -21,7 +21,7 @@ const request = (url, options = {}) => {
     const token = wx.getStorageSync('token');
     
     wx.request({
-      url: `${BASE_URL}${url}`,
+      url: `${CONFIG.EXTERNAL.DEEPSEEK_BASE_URL}${url}`,
       ...options,
       header: {
         'Content-Type': 'application/json',

@@ -1,4 +1,5 @@
 import { storage, KEYS } from './utils/storage/storage';
+import CONFIG from './config/config';
 // app.js
 import chatService from './services/chat/chat';
 import lazyLoader from './utils/lazyload/lazyload';
@@ -7,7 +8,7 @@ App({
   globalData: {
     userInfo: null,
     sessionId: null,
-    apiBaseUrl: 'http://localhost:7071/api'
+    apiBaseUrl: CONFIG.getApiUrl()
   },
   onLaunch() {
     // Initialize the app
