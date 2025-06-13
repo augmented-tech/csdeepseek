@@ -1,0 +1,25 @@
+{
+  "name": "csdeepseek",
+  "version": "1.0.0",
+  "description": "> A production-ready WeChat Mini Program with Go backend showcasing modern AI chat implementation using DeepSeek LLM.",
+  "main": "playwright.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augmented-tech/csdeepseek.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/augmented-tech/csdeepseek/issues"
+  },
+  "homepage": "https://github.com/augmented-tech/csdeepseek#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.53.0",
+    "@types/node": "^24.0.1"
+  }
+}

@@ -49,4 +49,12 @@ out/
 # Archives
 *.zip
 *.tar.gz
-*.rar 
+*.rar
+
+# Playwright
+/tests/
+/tests-examples/
+/playwright.config.js
+/playwright-report/
+/test-results/
+/node_modules/
