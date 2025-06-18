@@ -1,5 +1,6 @@
 import { storage, KEYS } from './utils/storage/storage';
 import CONFIG from './config/config';
+import Debug from './utils/debug/debug';
 // app.js
 import chatService from './services/chat/chat';
 import lazyLoader from './utils/lazyload/lazyload';
@@ -12,7 +13,7 @@ App({
   },
   onLaunch() {
     // Initialize the app
-    console.log('App launched');
+    Debug.log('App launched');
     
     // Enable web sockets
     chatService.setMode(true); // Enable WebSocket mode globally
@@ -33,7 +34,7 @@ App({
 
   onHide() {
     // Clean up lazy loader when app goes to background
-    console.log('App hidden, cleaning up lazy loader');
+    Debug.log('App hidden, cleaning up lazy loader');
   },
 
   onUnload() {

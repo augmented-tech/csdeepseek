@@ -2,6 +2,7 @@ import chatService from '../../services/chat/chat';
 import { storage, KEYS } from '../../utils/storage/storage';
 import { formatTime } from '../../utils/request/request';
 import lazyLoader from '../../utils/lazyload/lazyload';
+import Debug from '../../utils/debug/debug';
 
 Page({
   data: {
@@ -179,7 +180,7 @@ Page({
         // Chat components loaded successfully
       });
          } catch (error) {
-       console.error('[Chat] Lazy loading initialization error:', error);
+       Debug.error('[Chat] Lazy loading initialization error:', error);
      }
   },
 
@@ -214,7 +215,7 @@ Page({
         this.scrollToBottom();
       }
     } catch (error) {
-      console.error('Failed to load chat history:', error);
+      Debug.error('Failed to load chat history:', error);
       this.setData({ loading: false });
     }
   },

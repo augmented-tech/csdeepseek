@@ -20,7 +20,7 @@ const CONFIG = {
   // App Configuration
   APP: {
     VERSION: '1.0.0',
-    DEBUG_MODE: true,  // Set to false for production
+    DEBUG_MODE: true,  // Set to false for production - controls console logging
     SESSION_TIMEOUT: 30 * 60 * 1000,  // 30 minutes in milliseconds
   },
   

@@ -1,5 +1,6 @@
 import api from '../api/api';
 import wsChat from './ws_chat';
+import Debug from '../../utils/debug/debug';
 
 class UnifiedChatService {
   constructor() {
@@ -74,7 +75,7 @@ class UnifiedChatService {
           assistantMessage
         };
       } catch (error) {
-        console.error('Error sending message:', error);
+        Debug.error('Error sending message:', error);
         throw error;
       }
     }

@@ -22,6 +22,12 @@ const wsUrl = CONFIG.getWebSocketUrl();
 // Access other settings
 const debugMode = CONFIG.APP.DEBUG_MODE;
 const maxMessageLength = CONFIG.CHAT.MAX_MESSAGE_LENGTH;
+
+// Use Debug utility for conditional logging
+import Debug from '../utils/debug/debug';
+Debug.log('This only shows when DEBUG_MODE is true');
+Debug.error('This only shows when DEBUG_MODE is true');
+Debug.critical('This always shows, even in production');
 ```
 
 ## Environment Configuration
@@ -40,6 +46,9 @@ To switch between development and production:
 // Production  
 BASE_URL: 'https://your-production-domain.com/api',
 WS_URL: 'wss://your-production-domain.com/ws/chat',
+
+// Also remember to disable debug mode for production
+DEBUG_MODE: false,
 ```
 
 ## Benefits

@@ -2,6 +2,7 @@
  * Lazy Loading Utility for WeChat Mini Program
  * Handles component, image, and data lazy loading
  */
+import Debug from '../debug/debug';
 
 class LazyLoader {
   constructor() {
@@ -43,7 +44,7 @@ class LazyLoader {
   markComponentLoaded(componentName) {
     this.loadedComponents.add(componentName);
     if (this.debugMode) {
-      console.log(`[LazyLoader] Component loaded: ${componentName}`);
+      Debug.log(`[LazyLoader] Component loaded: ${componentName}`);
     }
   }
 
@@ -60,13 +61,13 @@ class LazyLoader {
           query.selectAll(selector).boundingClientRect((rects) => {
         if (!rects || rects.length === 0) {
           if (this.debugMode) {
-            console.log(`[LazyLoader] No elements found for selector "${selector}". Skipping image lazy loading.`);
+            Debug.log(`[LazyLoader] No elements found for selector "${selector}". Skipping image lazy loading.`);
           }
           return;
         }
 
         if (this.debugMode) {
-          console.log(`[LazyLoader] Found ${rects.length} elements for lazy loading with selector "${selector}"`);
+          Debug.log(`[LazyLoader] Found ${rects.length} elements for lazy loading with selector "${selector}"`);
         }
 
         // Create intersection observer for images only if elements exist
@@ -118,7 +119,7 @@ class LazyLoader {
         }
       },
              fail: (err) => {
-         console.error('[LazyLoader] Image lazy load failed:', err);
+         Debug.error('[LazyLoader] Image lazy load failed:', err);
          // Set fallback or error state
          const updateKey = `images.${imageId}`;
          context.setData({
@@ -150,7 +151,7 @@ class LazyLoader {
       this.setCache(cacheKey, data);
       return data;
          } catch (error) {
-       console.error('[LazyLoader] Data lazy load failed:', error);
+       Debug.error('[LazyLoader] Data lazy load failed:', error);
        throw error;
      }
   }
@@ -166,7 +167,7 @@ class LazyLoader {
       }
          } catch (e) {
        if (this.debugMode) {
-         console.error('[LazyLoader] Cache read error:', e);
+         Debug.error('[LazyLoader] Cache read error:', e);
        }
      }
     return null;
@@ -180,7 +181,7 @@ class LazyLoader {
       });
          } catch (e) {
        if (this.debugMode) {
-         console.error('[LazyLoader] Cache write error:', e);
+         Debug.error('[LazyLoader] Cache write error:', e);
        }
      }
   }
@@ -211,7 +212,7 @@ class LazyLoader {
       this.initImageLazyLoad(selector, context);
          } else {
        if (this.debugMode) {
-         console.log(`[LazyLoader] No elements found for "${selector}". Image lazy loading skipped.`);
+         Debug.log(`[LazyLoader] No elements found for "${selector}". Image lazy loading skipped.`);
        }
      }
   }
@@ -223,7 +224,7 @@ class LazyLoader {
   setDebugMode(enabled) {
     this.debugMode = enabled;
     if (enabled) {
-      console.log('[LazyLoader] Debug mode enabled');
+      Debug.log('[LazyLoader] Debug mode enabled');
     }
   }
 
