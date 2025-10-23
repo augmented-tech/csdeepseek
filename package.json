@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/augmented-tech/csdeepseek#readme",
   "devDependencies": {
-    "@playwright/test": "^1.53.0",
+    "@playwright/test": "^1.56.1",
     "@types/node": "^24.0.1"
   }
 }
